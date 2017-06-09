@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "base-64": "^0.1.0",
+    "jsondiffpatch": "^0.2.4",
     "kcors": "^2.2.1",
     "koa": "^2.2.0",
     "koa-route": "^3.2.0",
