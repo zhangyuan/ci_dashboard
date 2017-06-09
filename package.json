@@ -24,6 +24,7 @@
     "babel-preset-env": "^1.5.1",
     "mocha": "^3.4.2",
     "nock": "^9.0.13",
+    "timekeeper": "^1.0.0",
     "xml2js": "^0.4.17"
   }
 }

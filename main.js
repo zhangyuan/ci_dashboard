@@ -38,4 +38,12 @@ async function main() {
   })
 }
 
-main();
+setInterval(async () => {
+  try {
+    await main();
+    console.log("[sync]" +  new Date())
+  } catch(e) {
+    console.log(e)
+  }
+}, 10000);
+

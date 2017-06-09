@@ -10,5 +10,10 @@ export const perform = async (configuration) => {
     return await getPipelineFromCircleCI(project.username, project.name, circleci.token);
   }));
 
-  return pipelinesFromGoCD.concat(pipelinesFromCircleCI).sort((a, b) => a.name > b.name);
+  var pipelines = pipelinesFromGoCD.concat(pipelinesFromCircleCI).sort((a, b) => a.name > b.name);
+
+  return {
+    pipelines: pipelines,
+    timestamp: new Date().toISOString()
+  }
 };

@@ -1,13 +1,18 @@
 import 'babel-polyfill';
 var assert = require('assert');
-import { perform } from "../tasks";
+import {perform} from "../tasks";
 import nock from "nock";
+import tk from "timekeeper";
 
 nock.disableNetConnect();
 
-describe('tasks', async () => {
-  describe('given successful project', async () =>  {
-    it('should get pipeline status', async () => {
+describe('tasks', async() => {
+  describe('given successful project', async() => {
+    afterEach(() => {
+      tk.reset();
+    });
+
+    it('should get pipeline status', async() => {
       nock('https://circleci.com')
         .get('/api/v1.1/project/github/ci/cicleciproject?circle-token=secret_token')
         .replyWithFile(200, __dirname + "/circleci/builds_success.json");
@@ -16,12 +21,15 @@ describe('tasks', async () => {
         .get('/go/cctray.xml')
         .replyWithFile(200, __dirname + "/gocd/cctray.xml");
 
+      var time = new Date(2017, 6, 1, 12, 0, 0);
+      tk.freeze(time);
+
       const pipelines = await perform({
-        "gocd" : {
-          "cctray" : "http://gocd.local/go/cctray.xml",
-          "projects" : ["server"],
-          "auth" : {
-            "username" : "ci",
+        "gocd": {
+          "cctray": "http://gocd.local/go/cctray.xml",
+          "projects": ["server"],
+          "auth": {
+            "username": "ci",
             "password": "secret_password"
           }
         },
@@ -34,13 +42,18 @@ describe('tasks', async () => {
         }
       });
 
-      assert.deepEqual([{
-        name: "cicleciproject",
-        status: "success"
-      },{
-        name: "server",
-        status: "failed",
-      }], pipelines);
+      assert.deepEqual({
+        "pipelines": [
+          {
+            name: "cicleciproject",
+            status: "success"
+          },
+          {
+            name: "server",
+            status: "failed",
+        }],
+        "timestamp": new Date(2017, 6, 1, 12, 0, 0).toISOString()
+      }, pipelines);
     });
   });
 });
