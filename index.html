@@ -41,7 +41,12 @@
         }
 
         .timestamp {
-            text-align: right;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            background: darkgray;
+            padding: 5px 15px;
+            color: white;
         }
     </style>
 </head>
@@ -57,6 +62,7 @@
             $.get("/api/pipelines", function (data) {
                 var rendered = Mustache.render(template, data);
                 $('#main').html(rendered);
+                $("time.timeago").timeago();
             });
         }
 
@@ -68,9 +74,6 @@
             reload();
         });
 
-        jQuery(document).ready(function() {
-            jQuery("time.timeago").timeago();
-        });
     </script>
 </body>
 </html>
