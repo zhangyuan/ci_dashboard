@@ -1,0 +1,8 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<Projects>
+    <Project name="server :: package" activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="7 :: 4" lastBuildTime="2017-06-06T05:00:04" webUrl="https://gocd.local/go/pipelines/server/7/package/4"><messages><message text="Yuan Zhang &lt;evzhang@mail.local&gt;" kind="Breakers" /></messages></Project>
+    <Project name="server :: package :: package" activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="7 :: 4" lastBuildTime="2017-06-06T05:00:04" webUrl="https://gocd.local/go/tab/build/detail/server/7/package/4/package"><messages><message text="Yuan Zhang &lt;evzhang@mail.local&gt;" kind="Breakers" /></messages></Project>
+    <Project name="page :: build" activity="Sleeping" lastBuildStatus="Success" lastBuildLabel="32" lastBuildTime="2017-06-02T07:40:18" webUrl="https://gocd.local/go/pipelines/page/32/build/1" />
+    <Project name="page :: build :: test" activity="Sleeping" lastBuildStatus="Success" lastBuildLabel="32" lastBuildTime="2017-06-02T07:40:18" webUrl="https://gocd.local/go/tab/build/detail/page/32/build/1/test" />
+</Projects>

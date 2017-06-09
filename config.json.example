@@ -1,0 +1,22 @@
+{
+  "gocd": {
+    "cctray": "https://gocd.server.local/go/cctray.xml",
+    "projects": [
+      "infrastructure",
+      "API"
+    ],
+    "auth": {
+      "username": "ENV_GOCD_USERNAME",
+      "password": "ENV_GOCD_PASSWORD"
+    }
+  },
+  "circleci": {
+    "projects": [
+      {
+        "username": "labs",
+        "name": "dashboard"
+      }
+    ],
+    "token": "ENV_CIRCLECI_TOKEN"
+  }
+}

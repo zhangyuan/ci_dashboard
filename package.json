@@ -1,0 +1,23 @@
+{
+  "name": "ci_dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "main": "babel-node main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "base-64": "^0.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "mocha": "^3.4.2",
+    "nock": "^9.0.13",
+    "xml2js": "^0.4.17"
+  }
+}

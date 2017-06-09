@@ -1,0 +1,14 @@
+[
+  {
+    "build_num": 3,
+    "status": "success"
+  },
+  {
+    "build_num": 2,
+    "status": "fixed"
+  },
+  {
+    "build_num": 1,
+    "status": "failed"
+  }
+]
