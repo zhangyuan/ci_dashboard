@@ -45,5 +45,5 @@ setInterval(async () => {
   } catch(e) {
     console.log(e)
   }
-}, 10000);
+}, 60000);
 
