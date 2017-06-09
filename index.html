@@ -2,6 +2,7 @@
 <head>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
     <script id="template" type="x-tmpl-mustache">
     {{#projects}}
         <div class="project {{status}}">{{name}}</div>
@@ -33,19 +34,26 @@
 </head>
 <body>
     <div id="main">
-
     </div>
 
     <script type="text/javascript">
         var template = $('#template').html();
-        console.log("template", template)
         Mustache.parse(template);
 
-        $.get("/api/pipelines", function(data) {
-            var rendered = Mustache.render(template, {projects: data});
-            $('#main').html(rendered);
-        })
+        function reload() {
+            $.get("/api/pipelines", function (data) {
+                var rendered = Mustache.render(template, {projects: data});
+                $('#main').html(rendered);
+            });
+        }
 
+        reload();
+
+        var socket = io();
+
+        socket.on('hi', function(msg){
+            reload();
+        });
     </script>
 </body>
 </html>

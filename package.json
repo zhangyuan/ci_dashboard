@@ -14,7 +14,9 @@
     "base-64": "^0.1.0",
     "kcors": "^2.2.1",
     "koa": "^2.2.0",
-    "koa-sendfile": "^2.0.0"
+    "koa-sendfile": "^2.0.0",
+    "koa-socket": "^4.4.0",
+    "node-watch": "^0.5.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
