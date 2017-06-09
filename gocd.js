@@ -27,10 +27,17 @@ export const getPipelines = async (endpoint, auth, ...names) => {
 
             const pipelineNames = [...new Set(projects.map(x => x.pipelineName))];
 
-            const failedProjects = targetProjects.filter(x => x.lastBuildStatus === "Failure");
+            const buildingProjects = targetProjects.filter(x => x.activity === "Building");
+            const buildingPipelineNames = [ ...new Set(buildingProjects.map(x => x.pipelineName)) ];
+
+            const failedProjects = targetProjects.filter(x => {
+                return buildingPipelineNames.indexOf(x.pipelineName) === -1 && x.activity === "Sleeping" && x.lastBuildStatus === "Failure";
+            });
             const failedPipelineNames = [ ...new Set(failedProjects.map(x => x.pipelineName)) ];
 
-            const successfulPipelineNames = [... new Set([... pipelineNames].filter(x => failedPipelineNames.indexOf(x) === -1))];
+            const successfulPipelineNames = [... new Set([... pipelineNames].filter(x => {
+                return failedPipelineNames.indexOf(x) === -1 && buildingPipelineNames.indexOf(x) === -1;
+            }))];
 
             const pipelines = successfulPipelineNames.map(name => {
                 return {
@@ -42,7 +49,13 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                     name: name,
                     status: "failed"
                 }
-            })).sort((a, b) => a > b);
+            }).concat(buildingPipelineNames.map(name => {
+                return {
+                    name: name,
+                    status: "building"
+                }
+              }))
+            ).sort((a, b) => a > b);
 
             const selectedPipelines = pipelines.filter(x => names.indexOf(x.name) >= 0);
             resolve(selectedPipelines);

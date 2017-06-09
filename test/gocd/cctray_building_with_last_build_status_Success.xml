@@ -1,0 +1,6 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<Projects>
+    <Project name="api-performance-test :: staging" activity="Building" lastBuildStatus="Success" lastBuildLabel="63" lastBuildTime="2017-06-06T02:29:25" webUrl="https://gocd.server.local/go/pipelines/api-performance-test/63/staging/2"/>
+    <Project name="api-performance-test :: staging :: test" activity="Building" lastBuildStatus="Success" lastBuildLabel="63" lastBuildTime="2017-06-06T02:29:25" webUrl="https://gocd.server.local/go/tab/build/detail/api-performance-test/63/staging/2/test"/>
+</Projects>
