@@ -6,8 +6,8 @@
   "scripts": {
     "main": "babel-node main.js",
     "server": "babel-node server.js",
-    "test": "mocha --compilers js:babel-core/register --recursive",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --recursive --timeout=3000"
   },
   "author": "",
   "license": "ISC",
@@ -29,8 +29,10 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
     "nock": "^9.0.13",
+    "nyc": "^11.0.2",
     "timekeeper": "^1.0.0",
     "xml2js": "^0.4.17"
   }
