@@ -6,7 +6,8 @@
   "scripts": {
     "main": "babel-node main.js",
     "server": "babel-node server.js",
-    "test": "mocha --compilers js:babel-core/register --recursive"
+    "test": "mocha --compilers js:babel-core/register --recursive",
+    "eslint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -22,8 +23,12 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-eslint": "^6.1.2",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
     "mocha": "^3.4.2",
     "nock": "^9.0.13",
     "timekeeper": "^1.0.0",
