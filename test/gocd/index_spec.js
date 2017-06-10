@@ -69,7 +69,7 @@ describe('GoCD', async () => {
       ], pipelines);
     });
 
-    it.only('should return pipeline of multiple stages with status of building and last build status of Failure', async () => {
+    it('should return pipeline of multiple stages with status of building and last build status of Failure', async () => {
       var scope = nock('http://gocd.local')
         .get('/go/cctray.xml')
         .replyWithFile(200, __dirname + "/cctray_building_of_multiple_stages_with_last_build_status_Failure.xml");
