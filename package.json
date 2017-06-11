@@ -19,6 +19,7 @@
     "koa-route": "^3.2.0",
     "koa-sendfile": "^2.0.0",
     "koa-socket": "^4.4.0",
+    "koa-static": "^3.0.0",
     "node-watch": "^0.5.4"
   },
   "devDependencies": {

@@ -1,9 +1,13 @@
 <html>
 <head>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.4/jquery.timeago.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.4/jquery.timeago.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/jsfx.js"></script>
     <script id="template" type="x-tmpl-mustache">
     {{#pipelines}}
         <div class="project {{status}}">{{name}}</div>
@@ -13,6 +17,7 @@
         <time class="timeago" datetime="{{timestamp}}"></time>
     </div>
 
+
     </script>
 
 
@@ -20,6 +25,7 @@
         body {
             font-family: Georgia, Times, Times New Roman, serif;
         }
+
         .project {
             height: 40px;
             padding: 20px;
@@ -51,29 +57,56 @@
     </style>
 </head>
 <body>
-    <div id="main">
-    </div>
 
-    <script type="text/javascript">
-        var template = $('#template').html();
-        Mustache.parse(template);
+<div id="main">
+</div>
 
-        function reload() {
-            $.get("/api/pipelines", function (data) {
-                var rendered = Mustache.render(template, data);
-                $('#main').html(rendered);
-                $("time.timeago").timeago();
-            });
-        }
+<script type="text/javascript">
+    function createSFX() {
+        var library = {"failed":{"Frequency":{"Start":1587.662751403132,"Min":192.71927940537114,"Max":1510.8189652609603,"Slide":-0.23229512240649086,"DeltaSlide":-0.40766912223242846,"RepeatSpeed":0.9302330648017447,"ChangeAmount":1.6788384851169642,"ChangeSpeed":0.392730817709517},"Vibrato":{"Depth":0.03980625832167739,"DepthSlide":0.14515640191417578,"Frequency":6.8737103457053115,"FrequencySlide":0.8871711133065814},"Generator":{"Func":"triangle","A":0.8577774344326481,"B":0.5199540962683717,"ASlide":-0.4238535494823017,"BSlide":-0.9092694024782721},"Guitar":{"A":0.49487159753705945,"B":0.24503126059463298,"C":0.6438319785702387},"Phaser":{"Offset":-0.44806605522645926,"Sweep":0.5654083830003458},"Volume":{"Master":0.4,"Attack":0.38880846908887967,"Sustain":1.8307277904203278,"Punch":0.6183215639550887,"Decay":0.9139997682165433}}};
 
-        reload();
+        var sfx = jsfx.Live(library);
+        return sfx;
+    }
+    var sfx = createSFX();
 
-        var socket = io();
+    var template = $('#template').html();
+    Mustache.parse(template);
 
-        socket.on('hi', function(msg){
-            reload();
+    var failed = [];
+
+    function reload() {
+        $.get("/api/pipelines", function (data) {
+            var rendered = Mustache.render(template, data);
+            $('#main').html(rendered);
+            $("time.timeago").timeago();
+
+            var failedPiplines = _(data.pipelines).filter(function (x) {
+                return x.status === 'failed';
+            }).map(function (x) {
+                return x.name;
+            }).value();
+
+            console.log(failedPiplines, failed)
+
+            if (_.difference(failedPiplines, failed).length > 0) {
+                sfx.failed();
+            }
+
+            failed = failedPiplines;
         });
+    }
 
-    </script>
+
+    reload();
+
+    var socket = io();
+
+    socket.on('hi', function (msg) {
+        reload();
+    });
+
+
+</script>
 </body>
 </html>

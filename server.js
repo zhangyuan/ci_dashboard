@@ -6,6 +6,7 @@ import IO from 'koa-socket'
 import watch from 'node-watch'
 import fs from 'fs'
 const _ = require('koa-route');
+const serve = require('koa-static');
 
 const app = new Koa();
 const io = new IO();
@@ -34,5 +35,7 @@ app.use(_.get('/', async (ctx) => {
   const index_path = path.join(__dirname, "index.html");
   await sendfile(ctx, index_path)
 }));
+
+app.use(serve(__dirname + "/public"));
 
 app.listen(3000);
