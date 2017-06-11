@@ -4,6 +4,7 @@ import sendfile from 'koa-sendfile';
 import cors from "kcors"
 import IO from 'koa-socket'
 import watch from 'node-watch'
+import fs from 'fs'
 const _ = require('koa-route');
 
 const app = new Koa();
@@ -20,10 +21,12 @@ watch(store_path, () => {
 });
 
 app.use(_.get('/api/pipelines', async (ctx) => {
-  var stats = await sendfile(ctx, store_path);
+  ctx.response.type = 'json';
 
-  if(!stats) {
-    ctx.body = [];
+  if (fs.existsSync(store_path)) {
+    ctx.body = fs.createReadStream(store_path);
+  } else {
+    ctx.body = []
   }
 }));
 
