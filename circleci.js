@@ -11,6 +11,7 @@ export const getPipeline = async (username, project, token) => {
     let status;
 
     var build = res.data[0];
+
     switch(build.status){
         case "fixed":
             status = "success";
@@ -21,9 +22,15 @@ export const getPipeline = async (username, project, token) => {
         default:
             status = "success";
     }
+
+    const message = {
+        text: `[${build.committer_name}] ${build.subject}`
+    };
+
     return {
         name: project,
         status: status,
-        label: `${build.build_num}`
+        label: `${build.build_num}`,
+        message: message
     }
 };

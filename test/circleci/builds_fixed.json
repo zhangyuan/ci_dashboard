@@ -1,10 +1,14 @@
 [
   {
     "build_num": 2,
-    "status": "fixed"
+    "status": "fixed",
+    "committer_name": "evzhang",
+    "subject" : "update README.md"
   },
   {
     "build_num": 1,
-    "status": "failed"
+    "status": "failed",
+    "committer_name": "evzhang",
+    "subject" : "update README.md"
   }
 ]

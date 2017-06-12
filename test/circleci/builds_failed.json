@@ -1,6 +1,8 @@
 [
   {
     "build_num": 1,
-    "status": "failed"
+    "status": "failed",
+    "committer_name": "evzhang",
+    "subject" : "do something stupid"
   }
 ]

@@ -47,7 +47,10 @@ describe('tasks', async() => {
           {
             label: '3',
             name: "cicleciproject",
-            status: "success"
+            status: "success",
+            message: {
+              "text": "[evzhang] update README.md"
+            }
           },
           {
             label: "7",
