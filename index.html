@@ -10,7 +10,12 @@
     <script type="text/javascript" src="/assets/javascripts/jsfx.js"></script>
     <script id="template" type="x-tmpl-mustache">
     {{#pipelines}}
-        <div class="project {{status}}">{{name}}</div>
+        <div class="project {{status}}">
+            <div class="title">{{name}}</div>
+            {{#message}}
+            <div class="message">{{message.text}}</div>
+            {{/message}}
+        </div>
     {{/pipelines}}
 
     <div class="timestamp">
@@ -27,7 +32,6 @@
         }
 
         .project {
-            padding: 20px;
             font-size: 40px;
             color: white;
             margin: 10px auto;
@@ -49,9 +53,21 @@
             position: absolute;
             bottom: 0px;
             right: 0px;
-            background: darkgray;
+            background: #eeeeee;
             padding: 5px 15px;
             color: white;
+        }
+
+        .project .message {
+            text-align: right;
+            font-size: 15px;
+            background-color: #bdbdbd;
+            padding: 10px;
+            color: #424242;
+        }
+
+        .project .title {
+            padding: 10px;
         }
     </style>
 </head>
