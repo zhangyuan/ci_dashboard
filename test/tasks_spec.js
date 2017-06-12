@@ -57,7 +57,7 @@ describe('tasks', async() => {
             label: "7",
             name: "server",
             status: "failed",
-            lastBuildTime: "2017-06-06T05:00:04",
+            lastBuildTime: "2017-06-06T05:00:04-00:00",
             message: {
               text: "Yuan Zhang <evzhang@mail.local>",
               type: "breakers"

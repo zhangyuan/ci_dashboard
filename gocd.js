@@ -20,7 +20,7 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                     pipelineName: $.name.split(" :: ")[0],
                     stageName: $.name.split(" :: ")[1] || null,
                     jobName: $.name.split(" :: ")[2] || null,
-                    lastBuildTime: $.lastBuildTime,
+                    lastBuildTime: $.lastBuildTime + "-00:00",
                     lastBuildLabel: $.lastBuildLabel.split(" :: ")[0],
                     lastBuildStatus: $.lastBuildStatus,
                     activity: $.activity,
