@@ -40,6 +40,11 @@ npm run server
 
 Then Open [http://localhost:3000](http://localhost:3000).
 
+To use another port, for example `3000`, run
+```
+PORT=3333 npm run server
+```
+
 ## Thanks
 
 * jsfx https://github.com/loov/jsfx
