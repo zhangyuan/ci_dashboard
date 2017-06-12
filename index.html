@@ -11,7 +11,8 @@
     <script id="template" type="x-tmpl-mustache">
     {{#pipelines}}
         <div class="project {{status}}">
-            <div class="title">{{name}} <span class="label">#{{label}}</span></div>
+            <div class="title">{{name}} <span class="label">{{label}}</span><div class="clear" /></div>
+
             {{#message}}
             <div class="message">{{message.text}}</div>
             {{/message}}
@@ -31,6 +32,9 @@
             font-family: Georgia, Times, Times New Roman, serif;
         }
 
+        .clear {
+            clear: both;
+        }
         .project {
             font-size: 40px;
             color: white;
@@ -73,6 +77,11 @@
         .project .label {
             display: inline-block;
             float: right;
+            font-family: "Andale Mono";
+            background-color: #0074D9;
+            width: 100px;
+            text-align: center;
+            /*height: 100%;*/
         }
     </style>
 </head>
@@ -106,8 +115,6 @@
             }).map(function (x) {
                 return x.name;
             }).value();
-
-            console.log(failedPiplines, failed)
 
             if (_.difference(failedPiplines, failed).length > 0) {
                 sfx.failed();
