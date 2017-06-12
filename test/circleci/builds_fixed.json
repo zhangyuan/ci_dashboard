@@ -3,12 +3,14 @@
     "build_num": 2,
     "status": "fixed",
     "committer_name": "evzhang",
-    "subject" : "update README.md"
+    "subject" : "update README.md",
+    "stop_time" : "2017-06-12T06:29:09.762Z"
   },
   {
     "build_num": 1,
     "status": "failed",
     "committer_name": "evzhang",
-    "subject" : "update README.md"
+    "subject" : "update README.md",
+    "stop_time" : "2017-06-11T06:29:09.762Z"
   }
 ]

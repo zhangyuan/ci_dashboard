@@ -50,12 +50,14 @@ describe('tasks', async() => {
             status: "success",
             message: {
               "text": "[evzhang] update README.md"
-            }
+            },
+            "lastBuildTime": "2017-06-12T06:29:09.762Z"
           },
           {
             label: "7",
             name: "server",
             status: "failed",
+            lastBuildTime: "2017-06-06T05:00:04",
             message: {
               text: "Yuan Zhang <evzhang@mail.local>",
               type: "breakers"

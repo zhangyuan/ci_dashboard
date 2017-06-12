@@ -13,9 +13,16 @@
         <div class="project {{status}}">
             <div class="title">{{name}} <span class="label">{{label}}</span><div class="clear" /></div>
 
-            {{#message}}
-            <div class="message">{{message.text}}</div>
-            {{/message}}
+            <div class="note">
+                <time class="timeago last-build-time" datetime="{{lastBuildTime}}"></time>
+                {{#message}}
+                <span class="message">
+                    {{message.text}}
+                </span>
+                {{/message}}
+
+                <div class="clear" />
+            </div>
         </div>
     {{/pipelines}}
 
@@ -62,12 +69,17 @@
             color: white;
         }
 
-        .project .message {
-            text-align: right;
+        .project .note {
             font-size: 15px;
-            background-color: #bdbdbd;
+            background-color: #F5F5F5;
             padding: 10px;
-            color: #424242;
+            color: black;
+        }
+
+        .project .message {
+            float: right;
+            display: inline-block;
+            color: #757575;
         }
 
         .project .title {
@@ -81,7 +93,6 @@
             background-color: #0074D9;
             width: 100px;
             text-align: center;
-            /*height: 100%;*/
         }
     </style>
 </head>

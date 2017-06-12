@@ -51,6 +51,7 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                 return {
                     name: x.pipelineName,
                     status: "success",
+                    lastBuildTime: x.lastBuildTime,
                     label: x.lastBuildLabel
                 }
             }).concat(failedProjects.map(x => {
@@ -65,12 +66,14 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                     name: x.pipelineName,
                     status: "failed",
                     message: message,
-                    label: x.lastBuildLabel
+                    label: x.lastBuildLabel,
+                    lastBuildTime: x.lastBuildTime
                 }
             }).concat(buildingProjects.map(x => {
                 return {
                     name: x.pipelineName,
                     status: "building",
+                    lastBuildTime: x.lastBuildTime,
                     label: x.lastBuildLabel
                 }
               }))

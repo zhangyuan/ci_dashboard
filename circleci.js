@@ -31,6 +31,7 @@ export const getPipeline = async (username, project, token) => {
         name: project,
         status: status,
         label: `${build.build_num}`,
-        message: message
+        message: message,
+        lastBuildTime: build.stop_time
     }
 };

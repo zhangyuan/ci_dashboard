@@ -24,6 +24,7 @@ describe('GoCD', async () => {
           "text": "Yuan Zhang <evzhang@mail.local>",
           "type": "breakers"
         },
+        lastBuildTime: "2017-06-06T05:00:04",
         "label": "7"
       }], pipelines);
     });
@@ -40,18 +41,20 @@ describe('GoCD', async () => {
       );
       assert.deepEqual([
         {
-          "label": "32",
+          label: "32",
           name: 'page',
-          status: 'success'
+          status: 'success',
+          "lastBuildTime": "2017-06-02T07:40:18"
         },
         {
-          "label": "7",
+          label: "7",
           name: 'server',
           status: 'failed',
           message: {
             text: "Yuan Zhang <evzhang@mail.local>",
             type: "breakers"
-          }
+          },
+          lastBuildTime: "2017-06-06T05:00:04"
         }
       ], pipelines);
     });
@@ -70,6 +73,7 @@ describe('GoCD', async () => {
         {
           "label": "63",
           name: 'api-performance-test',
+          lastBuildTime: "2017-06-06T02:29:25",
           status: 'failed', message: {
             "type" : "breakers",
             "text" : "Breaker Jack<pawans@mail.local>"
@@ -90,6 +94,7 @@ describe('GoCD', async () => {
       );
       assert.deepEqual([
         { "label": "63",
+          "lastBuildTime": "2017-06-06T02:29:25",
           name: 'api-performance-test', status: 'building' }
       ], pipelines);
     });
@@ -105,7 +110,9 @@ describe('GoCD', async () => {
         "api-performance-test"
       );
       assert.deepEqual([
-        { "label": "63", name: 'api-performance-test', status: 'building' }
+        { "label": "63",
+          "lastBuildTime": "2017-06-06T02:29:25",
+          name: 'api-performance-test', status: 'building' }
       ], pipelines);
     });
 
@@ -120,7 +127,9 @@ describe('GoCD', async () => {
         "api-performance-test"
       );
       assert.deepEqual([
-        { "label": "63", name: 'api-performance-test', status: 'building' }
+        { "label": "63",
+          "lastBuildTime": "2017-06-06T02:29:25",
+          name: 'api-performance-test', status: 'building' }
       ], pipelines);
     });
 

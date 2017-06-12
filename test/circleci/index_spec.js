@@ -16,6 +16,7 @@ describe('CircleCI', async () => {
       assert.deepEqual({
         name: "theproject",
         status: "failed",
+        "lastBuildTime": "2017-06-12T06:29:09.762Z",
         label: "1",
         message: {text: "[evzhang] do something stupid"},
       }, pipeline);
@@ -33,6 +34,7 @@ describe('CircleCI', async () => {
         message: {
           "text": "[evzhang] update README.md"
         },
+        "lastBuildTime": "2017-06-12T06:29:09.762Z",
         name: "theproject",
         status: "success",
         label: '2'
@@ -51,6 +53,7 @@ describe('CircleCI', async () => {
         message: {
           "text": "[evzhang] update README.md"
         },
+        "lastBuildTime": "2017-06-12T06:29:09.762Z",
         name: "theproject",
         status: "success",
         label: '3'
