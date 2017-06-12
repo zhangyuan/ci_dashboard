@@ -41,9 +41,8 @@ async function main() {
 setInterval(async () => {
   try {
     await main();
-    console.log("[sync]" +  new Date())
   } catch(e) {
-    console.log(e)
+    console.log("[ERROR]") + new Date())
   }
 }, 30000);
 
