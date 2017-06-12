@@ -21,7 +21,7 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                     stageName: $.name.split(" :: ")[1] || null,
                     jobName: $.name.split(" :: ")[2] || null,
                     lastBuildTime: $.lastBuildTime,
-                    lastBuildLabel: $.lastBuildLabel,
+                    lastBuildLabel: $.lastBuildLabel.split(" :: ")[0],
                     lastBuildStatus: $.lastBuildStatus,
                     activity: $.activity,
                     message: message
@@ -50,7 +50,8 @@ export const getPipelines = async (endpoint, auth, ...names) => {
             const pipelines = successfulPipelines.map(x => {
                 return {
                     name: x.pipelineName,
-                    status: "success"
+                    status: "success",
+                    label: x.lastBuildLabel
                 }
             }).concat(failedProjects.map(x => {
                 let message = null;
@@ -63,12 +64,14 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                 return {
                     name: x.pipelineName,
                     status: "failed",
-                    message: message
+                    message: message,
+                    label: x.lastBuildLabel
                 }
             }).concat(buildingProjects.map(x => {
                 return {
                     name: x.pipelineName,
-                    status: "building"
+                    status: "building",
+                    label: x.lastBuildLabel
                 }
               }))
             ).sort((a, b) => a > b);

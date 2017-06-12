@@ -49,6 +49,7 @@ describe('tasks', async() => {
             status: "success"
           },
           {
+            label: "7",
             name: "server",
             status: "failed",
             message: {

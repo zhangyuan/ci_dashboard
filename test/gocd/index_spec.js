@@ -23,7 +23,8 @@ describe('GoCD', async () => {
         message: {
           "text": "Yuan Zhang <evzhang@mail.local>",
           "type": "breakers"
-        }
+        },
+        "label": "7"
       }], pipelines);
     });
 
@@ -39,10 +40,12 @@ describe('GoCD', async () => {
       );
       assert.deepEqual([
         {
+          "label": "32",
           name: 'page',
           status: 'success'
         },
         {
+          "label": "7",
           name: 'server',
           status: 'failed',
           message: {
@@ -53,7 +56,7 @@ describe('GoCD', async () => {
       ], pipelines);
     });
 
-    it('should find multiple pipelines with last status', async () => {
+    it('should find failed pipeline with last status', async () => {
       var scope = nock('http://gocd.local')
         .get('/go/cctray.xml')
         .replyWithFile(200, __dirname + "/cctray_sleeping_with_last_build_status_Failure.xml");
@@ -65,6 +68,7 @@ describe('GoCD', async () => {
       );
       assert.deepEqual([
         {
+          "label": "63",
           name: 'api-performance-test',
           status: 'failed', message: {
             "type" : "breakers",
@@ -85,7 +89,8 @@ describe('GoCD', async () => {
         "api-performance-test"
       );
       assert.deepEqual([
-        { name: 'api-performance-test', status: 'building' }
+        { "label": "63",
+          name: 'api-performance-test', status: 'building' }
       ], pipelines);
     });
 
@@ -100,7 +105,7 @@ describe('GoCD', async () => {
         "api-performance-test"
       );
       assert.deepEqual([
-        { name: 'api-performance-test', status: 'building' }
+        { "label": "63", name: 'api-performance-test', status: 'building' }
       ], pipelines);
     });
 
@@ -115,7 +120,7 @@ describe('GoCD', async () => {
         "api-performance-test"
       );
       assert.deepEqual([
-        { name: 'api-performance-test', status: 'building' }
+        { "label": "63", name: 'api-performance-test', status: 'building' }
       ], pipelines);
     });
 
