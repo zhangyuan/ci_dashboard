@@ -27,7 +27,7 @@
     {{/pipelines}}
 
     <div class="timestamp">
-        <time class="timeago" datetime="{{timestamp}}"></time>
+        updated <time class="timeago" datetime="{{timestamp}}"></time>
     </div>
 
 
@@ -60,8 +60,13 @@
             background-color: #FF5252;
         }
 
+        .timestamp:hover {
+            opacity: 1;
+            background: black;
+        }
         .timestamp {
-            position: absolute;
+            opacity: 0.4;
+            position: fixed;
             bottom: 0px;
             right: 0px;
             background: #eeeeee;
@@ -91,7 +96,7 @@
             float: right;
             font-family: "Andale Mono";
             background-color: #0074D9;
-            width: 100px;
+            width: 120px;
             text-align: center;
         }
     </style>
