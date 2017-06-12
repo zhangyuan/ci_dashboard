@@ -15,7 +15,8 @@ describe('CircleCI', async () => {
       const pipeline = await getPipeline('theusername', 'theproject', "secret_token");
       assert.deepEqual({
         name: "theproject",
-        status: "failed"
+        status: "failed",
+        label: "1"
       }, pipeline);
     });
   });
@@ -29,7 +30,8 @@ describe('CircleCI', async () => {
       const pipeline = await getPipeline('theusername', 'theproject', "secret_token");
       assert.deepEqual({
         name: "theproject",
-        status: "success"
+        status: "success",
+        label: '2'
       }, pipeline);
     });
   });
@@ -43,7 +45,8 @@ describe('CircleCI', async () => {
       const pipeline = await getPipeline('theusername', 'theproject', "secret_token");
       assert.deepEqual({
         name: "theproject",
-        status: "success"
+        status: "success",
+        label: '3'
       }, pipeline);
     });
   });

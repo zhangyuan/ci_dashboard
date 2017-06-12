@@ -10,7 +10,8 @@ export const getPipeline = async (username, project, token) => {
 
     let status;
 
-    switch(res.data[0].status){
+    var build = res.data[0];
+    switch(build.status){
         case "fixed":
             status = "success";
             break;
@@ -22,6 +23,7 @@ export const getPipeline = async (username, project, token) => {
     }
     return {
         name: project,
-        status: status
+        status: status,
+        label: `${build.build_num}`
     }
 };

@@ -45,6 +45,7 @@ describe('tasks', async() => {
       assert.deepEqual({
         "pipelines": [
           {
+            label: '3',
             name: "cicleciproject",
             status: "success"
           },
