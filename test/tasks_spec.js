@@ -51,6 +51,10 @@ describe('tasks', async() => {
           {
             name: "server",
             status: "failed",
+            message: {
+              text: "Yuan Zhang <evzhang@mail.local>",
+              type: "breakers"
+            }
         }],
         "timestamp": new Date(2017, 6, 1, 12, 0, 0).toISOString()
       }, pipelines);

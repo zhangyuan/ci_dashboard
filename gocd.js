@@ -1,5 +1,6 @@
 import axios from 'axios'
-var parseString = require('xml2js').parseString;
+import lodash from 'lodash'
+const parseString = require('xml2js').parseString;
 
 const getCCTray = async(endpoint, auth) => {
     return await axios.get(endpoint, {auth: auth});
@@ -11,6 +12,9 @@ export const getPipelines = async (endpoint, auth, ...names) => {
         parseString(res.data, (err, result) => {
             const projects = result.Projects.Project.map((x) => {
                 const $ = x.$;
+                const messages = x.messages;
+                const message = (messages && messages.length > 0) ? messages[0].message[0].$ : null;
+
                 return {
                     name: $.name,
                     pipelineName: $.name.split(" :: ")[0],
@@ -19,39 +23,51 @@ export const getPipelines = async (endpoint, auth, ...names) => {
                     lastBuildTime: $.lastBuildTime,
                     lastBuildLabel: $.lastBuildLabel,
                     lastBuildStatus: $.lastBuildStatus,
-                    activity: $.activity
+                    activity: $.activity,
+                    message: message
                 }
             });
 
-            const targetProjects = projects;
-
-            const pipelineNames = [...new Set(projects.map(x => x.pipelineName))];
+            const targetProjects = projects.filter(x => {
+                return x.stageName !== null && x.jobName === null
+            });
 
             const buildingProjects = targetProjects.filter(x => x.activity === "Building");
             const buildingPipelineNames = [ ...new Set(buildingProjects.map(x => x.pipelineName)) ];
 
-            const failedProjects = targetProjects.filter(x => {
+            const failedProjects = lodash(targetProjects).filter(x => {
                 return buildingPipelineNames.indexOf(x.pipelineName) === -1 && x.activity === "Sleeping" && x.lastBuildStatus === "Failure";
-            });
+            }).uniqBy(x => x.pipelineName)
+              .value();
+
             const failedPipelineNames = [ ...new Set(failedProjects.map(x => x.pipelineName)) ];
 
-            const successfulPipelineNames = [... new Set([... pipelineNames].filter(x => {
-                return failedPipelineNames.indexOf(x) === -1 && buildingPipelineNames.indexOf(x) === -1;
-            }))];
+            const successfulPipelines = lodash(targetProjects).filter(x => {
+                  return failedPipelineNames.indexOf(x.pipelineName) === -1 && buildingPipelineNames.indexOf(x.pipelineName) === -1;
+              }).uniqBy(x => x.pipelineName)
+              .value();
 
-            const pipelines = successfulPipelineNames.map(name => {
+            const pipelines = successfulPipelines.map(x => {
                 return {
-                    name: name,
+                    name: x.pipelineName,
                     status: "success"
                 }
-            }).concat(failedPipelineNames.map(name => {
-                return {
-                    name: name,
-                    status: "failed"
+            }).concat(failedProjects.map(x => {
+                let message = null;
+                if(x.message && x.message.kind === "Breakers") {
+                    message = {
+                        "type" : "breakers",
+                        "text" : x.message.text
+                    }
                 }
-            }).concat(buildingPipelineNames.map(name => {
                 return {
-                    name: name,
+                    name: x.pipelineName,
+                    status: "failed",
+                    message: message
+                }
+            }).concat(buildingProjects.map(x => {
+                return {
+                    name: x.pipelineName,
                     status: "building"
                 }
               }))

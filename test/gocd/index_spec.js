@@ -19,7 +19,11 @@ describe('GoCD', async () => {
       );
       assert.deepEqual([{
         name: 'server',
-        status: 'failed'
+        status: 'failed',
+        message: {
+          "text": "Yuan Zhang <evzhang@mail.local>",
+          "type": "breakers"
+        }
       }], pipelines);
     });
 
@@ -34,8 +38,39 @@ describe('GoCD', async () => {
         "server", "page"
       );
       assert.deepEqual([
-        { name: 'page', status: 'success' },
-        {name: 'server', status: 'failed'}
+        {
+          name: 'page',
+          status: 'success'
+        },
+        {
+          name: 'server',
+          status: 'failed',
+          message: {
+            text: "Yuan Zhang <evzhang@mail.local>",
+            type: "breakers"
+          }
+        }
+      ], pipelines);
+    });
+
+    it('should find multiple pipelines with last status', async () => {
+      var scope = nock('http://gocd.local')
+        .get('/go/cctray.xml')
+        .replyWithFile(200, __dirname + "/cctray_sleeping_with_last_build_status_Failure.xml");
+
+      const pipelines = await getPipelines(
+        'http://gocd.local/go/cctray.xml',
+        {},
+        'api-performance-test'
+      );
+      assert.deepEqual([
+        {
+          name: 'api-performance-test',
+          status: 'failed', message: {
+            "type" : "breakers",
+            "text" : "Breaker Jack<pawans@mail.local>"
+          }
+        }
       ], pipelines);
     });
 
