@@ -11,7 +11,7 @@
     <script id="template" type="x-tmpl-mustache">
     {{#pipelines}}
         <div class="project {{status}}">
-            <div class="title">{{name}}</div>
+            <div class="title">{{name}} <span class="label">#{{label}}</span></div>
             {{#message}}
             <div class="message">{{message.text}}</div>
             {{/message}}
@@ -68,6 +68,11 @@
 
         .project .title {
             padding: 10px;
+        }
+
+        .project .label {
+            display: inline-block;
+            float: right;
         }
     </style>
 </head>
