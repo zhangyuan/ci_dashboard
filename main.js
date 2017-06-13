@@ -42,7 +42,7 @@ setInterval(async () => {
   try {
     await main();
   } catch(e) {
-    console.log("[ERROR]") + new Date())
+    console.log("[ERROR]" + new Date())
   }
 }, 30000);
 
