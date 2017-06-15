@@ -10,9 +10,9 @@ export const getPipeline = async (username, project, token) => {
 
     let status;
 
-    var build = res.data[0];
+    const build = res.data[0];
 
-    var lastBuildTime = build.stop_time;
+    let lastBuildTime = build.stop_time;
 
     switch(build.status){
         case "fixed":
