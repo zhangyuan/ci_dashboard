@@ -4,7 +4,8 @@
     "status": "running",
     "committer_name": "evzhang",
     "subject" : "update README.md",
-    "stop_time" : "2017-06-12T06:29:09.762Z"
+    "stop_time" : null,
+    "start_time" : "2017-06-12T06:29:09.762Z",
   },
   {
     "build_num": 1,

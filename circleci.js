@@ -12,6 +12,8 @@ export const getPipeline = async (username, project, token) => {
 
     var build = res.data[0];
 
+    var lastBuildTime = build.stop_time;
+
     switch(build.status){
         case "fixed":
             status = "success";
@@ -21,6 +23,7 @@ export const getPipeline = async (username, project, token) => {
             break;
         case "running":
             status = "building";
+            lastBuildTime = build.start_time;
             break;
         default:
             status = "success";
@@ -29,12 +32,11 @@ export const getPipeline = async (username, project, token) => {
     const message = {
         text: `[${build.committer_name}] ${build.subject}`
     };
-
     return {
         name: project,
         status: status,
         label: `${build.build_num}`,
         message: message,
-        lastBuildTime: build.stop_time
+        lastBuildTime: lastBuildTime
     }
 };
