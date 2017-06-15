@@ -19,6 +19,9 @@ export const getPipeline = async (username, project, token) => {
         case "failed":
             status = "failed";
             break;
+        case "running":
+            status = "building";
+            break;
         default:
             status = "success";
     }
