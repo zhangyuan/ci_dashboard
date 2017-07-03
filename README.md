@@ -31,6 +31,11 @@ GoCD's username and password can by passed from environment variables `GOCD_USER
 CircleCI's token can be passed from environment variable of `CIRCLECI_TOKEN`.
 
 Run the task to periodically fetch the status from remote service. The data is stored in `pipeline.json`.
+
+```
+npm run main
+```
+
  
 Open another terminal and run the following command to run the web server,
 
