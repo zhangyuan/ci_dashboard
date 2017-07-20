@@ -5,12 +5,19 @@ export const perform = async (configuration) => {
   const gocd = configuration.gocd;
   const circleci = configuration.circleci;
 
-  const pipelinesFromGoCD = await getPipelinesFromGoCD(gocd.cctray, gocd.auth, ...gocd.projects);
-  const pipelinesFromCircleCI = await Promise.all(circleci.projects.map(async (project) => {
-    return await getPipelineFromCircleCI(project.username, project.name, circleci.token);
-  }));
+  let pipelinesFromGoCD = []
+  let pipelinesFromCircleCI = []
+  if (gocd) {
+    pipelinesFromGoCD = await getPipelinesFromGoCD(gocd.cctray, gocd.auth, ...gocd.projects);
+  }
 
-  var pipelines = pipelinesFromGoCD.concat(pipelinesFromCircleCI).sort((a, b) => a.name > b.name);
+  if (circleci) {
+    pipelinesFromCircleCI = await Promise.all(circleci.projects.map(async (project) => {
+      return await getPipelineFromCircleCI(project.username, project.name, circleci.token);
+    }));
+  }
+
+  const pipelines = pipelinesFromGoCD.concat(pipelinesFromCircleCI).sort((a, b) => a.name > b.name);
 
   return {
     pipelines: pipelines,
