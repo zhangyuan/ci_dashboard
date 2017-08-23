@@ -116,5 +116,24 @@ describe('CircleCI', async () => {
         label: '2'
       }, pipeline);
     });
-  });  
+  });
+
+  describe('given project with successful build in workflow', async () =>  {
+    it('should get pipeline status', async () => {
+      var scope = nock('https://circleci.com')
+        .get('/api/v1.1/project/github/theusername/theproject?circle-token=secret_token')
+        .replyWithFile(200, __dirname + "/builds_in_workflow.json");
+
+      const pipeline = await getPipeline('theusername', 'theproject', "secret_token");
+      assert.deepEqual({
+        message: {
+          "text": "[evzhang] update README.md"
+        },
+        "lastBuildTime": "2017-06-12T06:29:09.762Z",
+        name: "theproject",
+        status: "success",
+        label: '2'
+      }, pipeline);
+    });
+  });
 });
