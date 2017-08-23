@@ -20,6 +20,8 @@ export const getPipeline = async (username, project, token) => {
         const builds = res.data.filter(x => x.workflows && x.workflows.workflow_id === workflowId)
         if(builds.filter(x => x.status === "failed").length > 0) {
             status = "failed"
+        } else if (builds.filter(x => x.status === "running").length > 0) {
+            status = "building"
         }
     } else {
         switch(build.status){

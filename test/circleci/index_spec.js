@@ -80,11 +80,11 @@ describe('CircleCI', async () => {
     });
   });
 
-  describe('given project with workflow', async () =>  {
+  describe('given project with failed build in workflow', async () =>  {
     it('should get pipeline status', async () => {
       var scope = nock('https://circleci.com')
         .get('/api/v1.1/project/github/theusername/theproject?circle-token=secret_token')
-        .replyWithFile(200, __dirname + "/builds_in_workflow.json");
+        .replyWithFile(200, __dirname + "/failed_builds_in_workflow.json");
 
       const pipeline = await getPipeline('theusername', 'theproject', "secret_token");
       assert.deepEqual({
@@ -98,4 +98,23 @@ describe('CircleCI', async () => {
       }, pipeline);
     });
   });
+
+  describe('given project with running build in workflow', async () =>  {
+    it('should get pipeline status', async () => {
+      var scope = nock('https://circleci.com')
+        .get('/api/v1.1/project/github/theusername/theproject?circle-token=secret_token')
+        .replyWithFile(200, __dirname + "/running_builds_in_workflow.json");
+
+      const pipeline = await getPipeline('theusername', 'theproject', "secret_token");
+      assert.deepEqual({
+        message: {
+          "text": "[evzhang] update README.md"
+        },
+        "lastBuildTime": "2017-06-12T06:29:09.762Z",
+        name: "theproject",
+        status: "building",
+        label: '2'
+      }, pipeline);
+    });
+  });  
 });
