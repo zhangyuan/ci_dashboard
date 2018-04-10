@@ -26,7 +26,16 @@ async function main() {
   setupGoCDAuth(config);
   setupCircleciToken(config);
 
-  var pipelines = await perform(config);
+  var pipelines = (await perform(config)).sort((a, b) => {
+    if (a.status > b.status) {
+      return 1
+    }
+    if (a.status < b.status) {
+      return -1
+    }
+
+    return 0
+  });
 
   return new Promise((resolve, reject) => {
     fs.writeFile("./pipelines.json", JSON.stringify(pipelines, null, 2), (error) => {
