@@ -17,7 +17,15 @@ export const perform = async (configuration) => {
     }));
   }
 
-  const pipelines = pipelinesFromGoCD.concat(pipelinesFromCircleCI).sort((a, b) => a.name > b.name);
+  const pipelines = pipelinesFromGoCD.concat(pipelinesFromCircleCI).sort((a, b) => {
+    if (a.status > b.status) {
+      return 1
+    }
+    if (a.status < b.status) {
+      return -1
+    }
+    return 0
+  });
 
   return {
     pipelines: pipelines,
